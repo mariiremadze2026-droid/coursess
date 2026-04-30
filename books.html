@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>წიგნები — Deep Space Academy</title>
+  
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#64b5ff">
+
+  <link rel="stylesheet" href="css/style.css">
+  
+  <style>
+    .books-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
+      padding: 30px 0;
+    }
+    
+    .book-card {
+      transition: all 0.4s ease;
+      cursor: pointer;
+    }
+    
+    .book-card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 20px 40px rgba(100, 150, 255, 0.25);
+    }
+    
+    .book-card img {
+      width: 100%;
+      height: 380px;
+      object-fit: cover;
+      border-radius: 16px;
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <div class="nav-container">
+      <div class="logo" onclick="window.location.href='index.html'">🌌 Deep Space Academy</div>
+      <div class="hamburger" onclick="toggleMobileMenu()">☰</div>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html">მთავარი</a>
+        <a href="books.html" class="active">წიგნები</a>
+        <a href="history.html">ლიტერატურის ისტორია</a>
+        <a href="dashboard.html">ჩემი დაფა</a>
+        <a href="assignments.html">დავალებები</a>
+        <a href="#" onclick="logout()">გამოსვლა</a>
+      </div>
+    </div>
+  </nav>
+
+  <div style="max-width: 1400px; margin: 0 auto; padding: 40px 20px;">
+    <h1 style="text-align: center; margin-bottom: 50px; font-size: 2.8rem;">📖 ქართული წიგნების ბიბლიოთეკა</h1>
+    
+    <div class="books-grid" id="booksContainer">
+      <!-- JavaScript-ით ივსება -->
+    </div>
+  </div>
+
+  <!-- ==================== Reader Modal ==================== -->
+  <div id="readerModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.97); z-index: 2000; overflow: hidden;">
+    <div class="reader-container glass" style="height: 100vh; margin: 0; border-radius: 0; display: flex; flex-direction: column;">
+      
+      <!-- Reader Header -->
+      <div class="reader-header" style="padding: 15px 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(100,150,255,0.3);">
+        <div id="readerBookTitle" style="font-size: 1.4rem; font-weight: bold;"></div>
+        <div style="display: flex; gap: 10px;">
+          <button onclick="changeFontSize(-2)" class="btn-neon">A−</button>
+          <button onclick="changeFontSize(2)" class="btn-neon">A+</button>
+          <button onclick="toggleFullscreen()" class="btn-neon">⛶</button>
+          <button onclick="closeReader()" class="btn-neon">✕</button>
+        </div>
+      </div>
+
+      <!-- Reader Body -->
+      <div class="reader-body" style="flex: 1; display: flex; overflow: hidden;">
+        <!-- Sidebar TOC -->
+        <div class="reader-sidebar" style="width: 260px; background: rgba(15,15,35,0.95); padding: 20px; overflow-y: auto; border-right: 1px solid rgba(100,150,255,0.2);">
+          <h3>სარჩევი</h3>
+          <ul id="tocList" style="list-style: none; margin-top: 15px;"></ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="reader-content" id="readerContent" style="flex: 1; padding: 40px 50px; overflow-y: auto;">
+          <div id="bookText" class="book-text" style="max-width: 800px; margin: 0 auto; font-size: 18px; line-height: 1.85;"></div>
+        </div>
+      </div>
+
+      <!-- Reader Footer -->
+      <div class="reader-footer" style="padding: 15px 25px; display: flex; align-items: center; gap: 15px; border-top: 1px solid rgba(100,150,255,0.3);">
+        <button onclick="prevChapter()" id="prevBtn" class="btn-neon">‹ წინა თავი</button>
+        
+        <div style="flex: 1; background: #2a2a4a; height: 8px; border-radius: 4px;">
+          <div id="progressBar" style="height: 100%; width: 0%; background: linear-gradient(90deg, #64b5ff, #a78bff); border-radius: 4px; transition: width 0.4s;"></div>
+        </div>
+        
+        <span id="progressText" style="min-width: 50px; text-align: right;">0%</span>
+        
+        <button onclick="nextChapter()" id="nextBtn" class="btn-neon">შემდეგი თავი ›</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script>
+    function renderBooks() {
+      const container = document.getElementById('booksContainer');
+      container.innerHTML = '';
+
+      booksDatabase.forEach(book => {
+        const html = `
+          <div class="book-card glass" onclick="openReader(${book.id})">
+            <img src="${book.cover}" alt="${book.title}">
+            <h3 style="margin: 12px 0 8px;">${book.title}</h3>
+            <p style="color: #aaa;">${book.author}</p>
+            <span class="genre" style="display: inline-block; margin-top: 10px; background: rgba(100,150,255,0.2); color: #64b5ff; padding: 5px 14px; border-radius: 20px; font-size: 0.9rem;">
+              ${book.genre}
+            </span>
+          </div>`;
+        container.innerHTML += html;
+      });
+    }
+
+    // გვერდის ჩატვირთვა
+    window.onload = renderBooks;
+  </script>
+</body>
+</html>
