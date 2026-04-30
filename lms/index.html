@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deep Space Academy - LMS</title>
+  
+  <!-- PWA Meta Tags -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#64b5ff">
+  <link rel="icon" href="icons/icon-192.png">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <div class="nav-container">
+      <div class="logo" onclick="window.location.href='index.html'">🌌 Deep Space Academy</div>
+      <div class="hamburger" onclick="toggleMobileMenu()">☰</div>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html" class="active">მთავარი</a>
+        <a href="books.html">წიგნები</a>
+        <a href="history.html">ლიტერატურის ისტორია</a>
+        <a href="dashboard.html">ჩემი დაფა</a>
+        <a href="assignments.html">დავალებები</a>
+        <a href="#" onclick="logout()">გამოსვლა</a>
+      </div>
+    </div>
+  </nav>
+
+  <div style="max-width: 1400px; margin: 0 auto; padding: 40px 20px;">
+    
+    <!-- Hero Section -->
+    <div class="hero glass" style="text-align: center; padding: 100px 20px; margin-bottom: 70px; border-radius: 24px;">
+      <h1 style="font-size: 3.4rem; margin-bottom: 20px; line-height: 1.2;">
+        მოგესალმებით<br>Deep Space Academy-ში
+      </h1>
+      <p style="font-size: 1.5rem; max-width: 700px; margin: 0 auto 40px; color: #ccc;">
+        ქართული ლიტერატურის, ისტორიისა და ცოდნის თანამედროვე სივრცე
+      </p>
+      <button onclick="window.location.href='books.html'" class="btn-neon" style="font-size: 1.4rem; padding: 18px 50px;">
+        📖 დაიწყე სწავლა
+      </button>
+    </div>
+
+    <!-- კურსების სექცია -->
+    <h2 style="text-align: center; margin-bottom: 40px; font-size: 2.2rem;">ხელმისაწვდომი კურსები</h2>
+    
+    <div class="course-grid" id="coursesContainer" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px;">
+      <!-- JavaScript-ით ივსება -->
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script>
+    // index.html-ის სპეციფიური კოდი
+    const sampleCourses = [
+      {
+        title: "ვეფხისტყაოსანი - სიღრმისეული ანალიზი",
+        desc: "რუსთაველის შედევრის ფილოსოფიური და ლიტერატურული განხილვა"
+      },
+      {
+        title: "ქართული ლიტერატურის ისტორია",
+        desc: "V საუკუნიდან თანამედროვე პერიოდამდე"
+      },
+      {
+        title: "თანამედროვე ქართული პროზა",
+        desc: "XXI საუკუნის ქართული მწერლები და ტენდენციები"
+      },
+      {
+        title: "შემოქმედებითი წერა",
+        desc: "როგორ დავწეროთ კარგი მოთხრობა და რომანი"
+      }
+    ];
+
+    function renderCourses() {
+      const container = document.getElementById('coursesContainer');
+      container.innerHTML = '';
+
+      sampleCourses.forEach(course => {
+        const card = `
+          <div class="glass" style="padding: 28px; height: 100%;">
+            <h3 style="margin-bottom: 15px;">${course.title}</h3>
+            <p style="color: #ccc; margin-bottom: 25px;">${course.desc}</p>
+            <button onclick="alert('კურსი დაემატა თქვენს დაფაზე! (დემო)')" class="btn-neon" style="width: 100%;">
+              დარეგისტრირდი კურსზე
+            </button>
+          </div>`;
+        container.innerHTML += card;
+      });
+    }
+
+    // გვერდის ჩატვირთვა
+    window.onload = () => {
+      renderCourses();
+    };
+  </script>
+</body>
+</html>
