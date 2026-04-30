@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>შესვლა — Deep Space Academy</title>
+  
+  <!-- PWA Meta -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#64b5ff">
+
+  <link rel="stylesheet" href="css/style.css">
+  
+  <style>
+    .auth-box {
+      max-width: 420px;
+      margin: 100px auto;
+      padding: 50px 35px;
+    }
+    
+    input {
+      width: 100%;
+      padding: 16px 18px;
+      margin: 12px 0;
+      background: rgba(30, 35, 60, 0.8);
+      border: 1px solid rgba(100, 150, 255, 0.4);
+      border-radius: 12px;
+      color: white;
+      font-size: 1.05rem;
+    }
+    
+    input:focus {
+      outline: none;
+      border-color: #64b5ff;
+      box-shadow: 0 0 0 3px rgba(100, 150, 255, 0.2);
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <div class="nav-container">
+      <div class="logo" onclick="window.location.href='index.html'">🌌 Deep Space Academy</div>
+    </div>
+  </nav>
+
+  <div class="auth-box glass">
+    <h1 style="text-align: center; margin-bottom: 40px; font-size: 2.2rem;">შესვლა</h1>
+
+    <div>
+      <input type="email" id="loginEmail" placeholder="ელფოსტა" autocomplete="email">
+      <input type="password" id="loginPassword" placeholder="პაროლი" autocomplete="current-password">
+      
+      <button onclick="handleLogin()" class="btn-neon" style="width: 100%; margin-top: 25px; padding: 16px; font-size: 1.2rem;">
+        შესვლა
+      </button>
+    </div>
+
+    <div style="text-align: center; margin-top: 35px; color: #aaa; font-size: 0.95rem;">
+      <p><strong>Demo ანგარიშები:</strong></p>
+      <p>სტუდენტი: <strong>student@lms.ge</strong> / <strong>student123</strong></p>
+      <p>ადმინი: <strong>admin@lms.ge</strong> / <strong>admin123</strong></p>
+    </div>
+
+    <div style="text-align: center; margin-top: 40px; font-size: 0.95rem;">
+      <p>ჯერ არ გაქვს ანგარიში?</p>
+      <button onclick="alert('რეგისტრაცია დემო რეჟიმშია. გამოიყენეთ ზემოთ მოცემული Demo ანგარიშები.')" 
+              style="background: transparent; border: none; color: #64b5ff; text-decoration: underline; cursor: pointer;">
+        რეგისტრაცია
+      </button>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script>
+    function handleLogin() {
+      const email = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value.trim();
+
+      if (!email || !password) {
+        alert("გთხოვთ შეიყვანოთ ელფოსტა და პაროლი");
+        return;
+      }
+
+      login(email, password);
+    }
+
+    // Enter ღილაკით შესვლა
+    document.getElementById('loginPassword').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        handleLogin();
+      }
+    });
+  </script>
+</body>
+</html>
