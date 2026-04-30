@@ -1,1 +1,223 @@
+/* css/style.css */
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: #0a0a1f;
+  color: #e0e0ff;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ანიმაციური კოსმოსური ფონი */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 30% 20%, rgba(100,150,255,0.15), transparent 50%),
+              radial-gradient(circle at 70% 80%, rgba(180,100,255,0.12), transparent 60%);
+  z-index: -2;
+  animation: aurora 30s linear infinite;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(white 1px, transparent 1px);
+  background-size: 60px 60px;
+  opacity: 0.07;
+  z-index: -1;
+}
+
+@keyframes aurora {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(35px, 25px); }
+  100% { transform: translate(0, 0); }
+}
+
+/* Navbar */
+nav {
+  background: rgba(10, 10, 31, 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(100, 150, 255, 0.3);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.65rem;
+  color: #64b5ff;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.nav-links {
+  display: flex;
+  gap: 22px;
+  font-size: 1.05rem;
+}
+
+.nav-links a {
+  color: #e0e0ff;
+  text-decoration: none;
+  padding: 8px 14px;
+  transition: 0.3s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: #64b5ff;
+}
+
+/* Hamburger Menu (მობილურისთვის) */
+.hamburger {
+  display: none;
+  font-size: 1.9rem;
+  color: #64b5ff;
+  cursor: pointer;
+  padding: 5px;
+}
+
+/* Glass Effect */
+.glass {
+  background: rgba(20, 25, 50, 0.85);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(100, 150, 255, 0.3);
+  border-radius: 16px;
+}
+
+/* Neon Button */
+.btn-neon {
+  background: transparent;
+  border: 2px solid #64b5ff;
+  color: #64b5ff;
+  padding: 12px 26px;
+  border-radius: 50px;
+  font-size: 1.02rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-neon:hover {
+  background: #64b5ff;
+  color: #0a0a1f;
+  box-shadow: 0 0 20px #64b5ff;
+  transform: translateY(-2px);
+}
+
+/* Reader Styles */
+.reader-container {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: #0f0f1e;
+  z-index: 2000;
+}
+
+.reader-header {
+  padding: 15px 20px;
+  background: rgba(10, 10, 31, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(100,150,255,0.3);
+}
+
+.reader-body {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+.reader-sidebar {
+  width: 260px;
+  background: rgba(15,15,35,0.95);
+  padding: 25px 20px;
+  overflow-y: auto;
+  border-right: 1px solid rgba(100,150,255,0.2);
+}
+
+.reader-content {
+  flex: 1;
+  padding: 40px 50px;
+  overflow-y: auto;
+  font-size: 18px;
+  line-height: 1.85;
+}
+
+.book-text {
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    right: 0;
+    background: rgba(10,10,31,0.98);
+    padding: 25px;
+    gap: 15px;
+    border-top: 1px solid rgba(100,150,255,0.3);
+  }
+  
+  .nav-links.active {
+    display: flex;
+  }
+  
+  .hamburger {
+    display: block;
+  }
+}
+
+@media (max-width: 768px) {
+  .books-grid, .course-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .reader-content {
+    padding: 25px 30px;
+    font-size: 17px;
+  }
+  
+  .reader-sidebar {
+    width: 240px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    font-size: 1.45rem;
+  }
+  
+  h1 {
+    font-size: 2.3rem;
+  }
+  
+  .reader-header {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+}
