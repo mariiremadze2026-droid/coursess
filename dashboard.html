@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ჩემი დაფა — Deep Space Academy</title>
+  
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#64b5ff">
+
+  <link rel="stylesheet" href="css/style.css">
+  
+  <style>
+    .progress-circle {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: conic-gradient(#64b5ff 0% 68%, #2a2a4a 68% 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      font-weight: bold;
+      margin: 0 auto;
+    }
+
+    .stat-card {
+      text-align: center;
+      padding: 25px 15px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <div class="nav-container">
+      <div class="logo" onclick="window.location.href='index.html'">🌌 Deep Space Academy</div>
+      <div class="hamburger" onclick="toggleMobileMenu()">☰</div>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html">მთავარი</a>
+        <a href="books.html">წიგნები</a>
+        <a href="history.html">ლიტერატურის ისტორია</a>
+        <a href="dashboard.html" class="active">ჩემი დაფა</a>
+        <a href="assignments.html">დავალებები</a>
+        <a href="#" onclick="logout()">გამოსვლა</a>
+      </div>
+    </div>
+  </nav>
+
+  <div style="max-width: 1400px; margin: 0 auto; padding: 40px 20px;">
+    
+    <h1 style="margin-bottom: 10px;">გამარჯობა, <span id="userGreeting" style="color: #64b5ff;">სტუდენტო</span>!</h1>
+    <p style="color: #aaa; margin-bottom: 50px;">აქ შეგიძლია ნახო შენი პროგრესი და აქტიური კურსები</p>
+
+    <!-- სტატისტიკა -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 25px; margin-bottom: 60px;">
+      
+      <div class="glass stat-card">
+        <div class="progress-circle">68%</div>
+        <h3 style="margin-top: 20px;">საერთო პროგრესი</h3>
+      </div>
+
+      <div class="glass stat-card">
+        <h2 style="color: #64b5ff; font-size: 2.8rem;">4</h2>
+        <p>აქტიური კურსი</p>
+      </div>
+
+      <div class="glass stat-card">
+        <h2 style="color: #64b5ff; font-size: 2.8rem;">19</h2>
+        <p>წაკითხული თავი</p>
+      </div>
+
+      <div class="glass stat-card">
+        <h2 style="color: #64b5ff; font-size: 2.8rem;">84</h2>
+        <p>საშუალო ქულა</p>
+      </div>
+    </div>
+
+    <!-- ჩემი კურსები -->
+    <h2 style="margin-bottom: 25px;">ჩემი კურსები</h2>
+    <div id="myCoursesContainer" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 25px;">
+      <!-- JavaScript-ით ივსება -->
+    </div>
+
+  </div>
+
+  <script src="js/app.js"></script>
+  <script>
+    function renderMyCourses() {
+      const container = document.getElementById('myCoursesContainer');
+      container.innerHTML = `
+        <div class="glass" style="padding: 25px;">
+          <h3>ვეფხისტყაოსანი - სიღრმისეული ანალიზი</h3>
+          <p style="color: #ccc; margin: 15px 0;">პროგრესი: 68%</p>
+          <div style="height: 10px; background: #2a2a4a; border-radius: 5px; margin: 15px 0;">
+            <div style="width: 68%; height: 100%; background: linear-gradient(90deg, #64b5ff, #a78bff); border-radius: 5px;"></div>
+          </div>
+          <button onclick="window.location.href='lesson.html'" class="btn-neon" style="width: 100%;">გავაგრძელო სწავლა →</button>
+        </div>
+
+        <div class="glass" style="padding: 25px;">
+          <h3>ქართული ლიტერატურის ისტორია</h3>
+          <p style="color: #ccc; margin: 15px 0;">პროგრესი: 45%</p>
+          <div style="height: 10px; background: #2a2a4a; border-radius: 5px; margin: 15px 0;">
+            <div style="width: 45%; height: 100%; background: linear-gradient(90deg, #64b5ff, #a78bff); border-radius: 5px;"></div>
+          </div>
+          <button class="btn-neon" style="width: 100%;">გავაგრძელო სწავლა →</button>
+        </div>
+      `;
+    }
+
+    // გვერდის ჩატვირთვა
+    window.onload = () => {
+      const user = JSON.parse(localStorage.getItem('currentUser')) || { username: "სტუდენტო" };
+      document.getElementById('userGreeting').textContent = user.username || "სტუდენტო";
+      
+      renderMyCourses();
+    };
+  </script>
+</body>
+</html>
